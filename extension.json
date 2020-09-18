@@ -4,5 +4,10 @@
     "organization": "Neighbourhoodie Software",
     "description": "Erlang Syntax for Nova",
     "version": "1.0",
-    "categories": ["languages"]
+    "license": "Apache 2.0 License",
+    "categories": ["languages"],
+    "repository": "https://github.com/neighbourhoodie/Erlang.novaextension",
+    "bugs": {
+        "url": "https://github.com/neighbourhoodie/Erlang.novaextension/issues"
+    }
 }

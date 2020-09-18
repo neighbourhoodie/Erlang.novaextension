@@ -15,7 +15,9 @@ Erlang code-base looks significantly different, we’re happy to accept patches 
 
 ## Acknowledgements
 
-Thanks to https://github.com/stollcri/elixir.novaextension for inspiration
+Thanks to https://github.com/stollcri/elixir.novaextension for inspiration.
+
+Thanks to Joe Armstrong for inventing Erlang.
 
 ## Copyright & License
 
