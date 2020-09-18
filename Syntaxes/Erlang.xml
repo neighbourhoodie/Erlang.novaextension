@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syntax name="erlang">
+    <meta>
+        <name>Erlang</name>
+        <type>script</type>
+        <preferred-file-extension>erl</preferred-file-extension>
+    </meta>
+    
+    <detectors>
+        <extension priority="1.0">erl,hrl</extension>
+    </detectors>
+    
+    <comments>
+        <single>%</single>
+    </comments>
+    
+    <brackets>
+        <pair open="(" close=")" />
+        <pair open="[" close="]" />
+        <pair open="{" close="}" />
+		<pair open="&apos;" close="&apos;" />
+    </brackets>
+    
+    <surrounding-pairs>
+        <pair open="{" close="}" />
+        <pair open="[" close="]" />
+        <pair open="(" close=")" />
+        <pair open="&quot;" close="&quot;" />
+		<pair open="&apos;" close="&apos;" />
+        <pair open="&lt;&lt;" close="&gt;&gt;" />
+    </surrounding-pairs>
+    
+    <scopes>
+        <include syntax="self" collection="comments" />
+		<include syntax="self" collection="definitions" />
+
+
+        <include syntax="self" collection="values" />
+		<include syntax="self" collection="identifiers" />
+        <include syntax="self" collection="syntax" />
+    </scopes>
+
+    <collections>
+
+        <collection name="comments">
+            <scope name="erlang.comment.single" spell-check="true">
+                <expression>\%(.*)$</expression>
+                <capture number="1" name="erlang.comment.content" />
+            </scope>
+        </collection>
+
+        <collection name="definitions">
+            <scope name="erlang.function">
+                <symbol type="function">
+                    <context behaviour="end" group="function" />
+                </symbol>
+                <expression>\.</expression>
+            </scope>
+            
+            <scope name="erlang.function">
+                <symbol type="function">
+                    <context behaviour="next" group="function" />
+                </symbol>
+                <expression>\;</expression>
+            </scope>
+    
+            <scope name="erlang.function">
+    			<symbol type="function">
+    				<context behavior="start" group="function" />
+    			</symbol>
+                <starts-with>
+                    <expression>^(fun\s+)?([a-z0-9_]+)</expression>
+            		<capture number="1" name="erlang.keyword.fun" />
+            		<capture number="2" name="erlang.identifier.function.name" />
+                </starts-with>
+                <ends-with>
+                    <expression>-&gt;</expression>
+                </ends-with>
+                <subscopes>
+					<scope name="erlang.arguments">
+						<starts-with>
+							<expression>\(</expression>
+							<capture number="0" name="erlang.bracket" />
+						</starts-with>
+						<ends-with>
+							<expression>\)</expression>
+							<capture number="0" name="erlang.bracket" />
+						</ends-with>
+						<subscopes>
+							<scope name="erlang.separator">
+								<expression>,</expression>
+							</scope>
+							<include syntax="self" collection="values" />
+							<include syntax="self" collection="syntax" />
+						</subscopes>
+					</scope>
+    
+                    <include syntax="self" collection="comments" />
+                    <include syntax="self" collection="syntax" />
+                    <include syntax="self" collection="values" />
+    				<include syntax="self" collection="identifiers" />
+                </subscopes>
+            </scope>
+
+        </collection>
+
+		<collection name="values">
+			<include syntax="self" collection="strings" />
+			<include syntax="self" collection="keywords" />
+
+			<scope name="erlang.value.null">
+				<strings>
+					<string>nil</string>
+				</strings>
+			</scope>
+
+			<scope name="erlang.value.boolean">
+				<strings>
+					<string>true</string>
+					<string>false</string>
+				</strings>
+			</scope>
+
+			<scope name="erlang.value.number">
+				<expression>\b\-?(?:[\d_]+(?:\.[\d_])?|(?:\.[\d_]+))\b</expression>
+			</scope>
+			
+			<scope name="erlang.value.list">
+				<symbol type="expression">
+					<context behavior="subtree" />
+				</symbol>
+				<starts-with>
+					<expression>\[</expression>
+					<capture number="0" name="erlang.bracket" />
+				</starts-with>
+				<ends-with>
+					<expression>\]</expression>
+					<capture number="0" name="erlang.bracket" />
+				</ends-with>
+				<subscopes>
+					<include syntax="self" collection="comments" />
+					<include syntax="self" collection="values" />
+					<include syntax="self" collection="identifiers" />
+					<include syntax="self" collection="syntax" />
+				</subscopes>
+			</scope>
+			
+			<scope name="erlang.value.tuple">
+				<symbol type="expression">
+					<context behavior="subtree" />
+				</symbol>
+				<starts-with>
+					<expression>\{</expression>
+					<capture number="0" name="erlang.bracket" />
+				</starts-with>
+				<ends-with>
+					<expression>\}</expression>
+					<capture number="0" name="erlang.bracket" />
+				</ends-with>
+				<subscopes>
+					<include syntax="self" collection="comments" />
+					<include syntax="self" collection="values" />
+					<include syntax="self" collection="identifiers" />
+					<include syntax="self" collection="syntax" />
+				</subscopes>
+			</scope>
+			
+			<scope name="erlang.value.record.inline">
+				<symbol type="expression">
+					<context behavior="subtree" />
+				</symbol>
+				<starts-with>
+					<expression>([a-zA-Z0-9_]*)(\#)([a-z0-9_]+)\.([a-z0-9_]+)</expression>
+					<capture number="1" name="erlang.identifier" />
+					<capture number="2" name="erlang.hash" />
+					<capture number="3" name="erlang.identifier.type.struct" />
+					<capture number="4" name="erlang.identifier.property" />
+				</starts-with>
+				<ends-with>
+					<expression>\}</expression>
+					<capture number="0" name="erlang.bracket" />
+				</ends-with>
+				<subscopes>
+					<include syntax="self" collection="comments" />
+					<include syntax="self" collection="values" />
+					<include syntax="self" collection="identifiers" />
+					<include syntax="self" collection="syntax" />
+				</subscopes>
+			</scope>
+
+			<scope name="erlang.definition.record">
+				<symbol type="expression">
+					<context behavior="subtree" />
+				</symbol>
+				<starts-with>
+					<expression>(\#)([a-z0-9_]+)\s*(\{)</expression>
+					<capture number="1" name="erlang.hash" />
+					<capture number="2" name="erlang.identifier.type.struct" />
+					<capture number="3" name="erlang.bracket" />
+				</starts-with>
+				<ends-with>
+					<expression>\}</expression>
+					<capture number="0" name="erlang.bracket" />
+				</ends-with>
+				<subscopes>
+					<include syntax="self" collection="comments" />
+					<include syntax="self" collection="values" />
+					<include syntax="self" collection="identifiers" />
+					<include syntax="self" collection="syntax" />
+				</subscopes>
+			</scope>
+
+			<scope name="erlang.value.map">
+				<symbol type="expression">
+					<context behavior="subtree" />
+				</symbol>
+				<starts-with>
+					<expression>\#(\{)</expression>
+					<capture number="1" name="erlang.bracket" />
+				</starts-with>
+				<ends-with>
+					<expression>\}</expression>
+					<capture number="0" name="erlang.bracket" />
+				</ends-with>
+				<subscopes>
+					<include syntax="self" collection="comments" />
+					<include syntax="self" collection="values" />
+					<include syntax="self" collection="identifiers" />
+					<include syntax="self" collection="syntax" />
+				</subscopes>
+			</scope>
+
+            <scope name="erlang.definition.function.inline">
+    			<symbol type="function">
+    				<context behavior="subtree" group="function" />
+    			</symbol>
+                <expression>([a-z0-9_]+)/(\d+)</expression>
+            	<capture number="1" name="erlang.identifier.function.name" />
+            	<capture number="2" name="erlang.identifier.function.argument" />
+            </scope>
+
+		</collection>
+
+        <collection name="strings">
+            <scope name="erlang.string">
+                <starts-with>
+                    <expression>[^\$]?&#39;</expression>
+                </starts-with>
+                <ends-with>
+                    <expression>[^\$]?&#39;</expression>
+                </ends-with>
+            </scope>
+    
+            <scope name="erlang.string">
+                <starts-with>
+                    <expression>[^\$]?&quot;</expression>
+                </starts-with>
+                <ends-with>
+                    <expression>[^\$]?&quot;</expression>
+                </ends-with>
+            </scope>
+    
+            <scope name="erlang.string">
+                <starts-with>
+                    <expression>&lt;&lt;</expression>
+                </starts-with>
+                <ends-with>
+                    <expression>&gt;&gt;</expression>
+                </ends-with>
+            </scope>
+        </collection>
+        
+        <collection name="keywords">
+            <scope name="erlang.keyword">
+                <strings>
+                    <string>module</string>
+                    <string>import</string>
+                    <string>export</string>
+                    <string>compile</string>
+                    <string>include_lib</string>
+                    <string>record</string>
+                    <string>define</string>
+                    <string>endif</string>
+    
+                    <string>fun</string>
+                    
+                    <string>true</string>
+                    <string>false</string>
+                    <string>nil</string>
+    
+                    <string>case</string>
+                    <string>of</string>
+                    <string>end</string>
+    
+                    <string>throw</string>
+                    <string>try</string>
+                    <string>catch</string>
+                    <string>when</string>
+
+                    <!-- EUnit -->
+                    <string>foreach</string>
+                    <string>setup</string>
+    
+                </strings>
+            </scope>
+        </collection>
+
+        <collection name="identifiers">
+		
+    		<scope name="erlang.identifier.method">
+    			<expression>([A-Za-zÀ-ÖØ-öø-ÿ_][A-Za-zÀ-ÖØ-öø-ÿ0-9_]*)?(\:)([A-Za-zÀ-ÖØ-öø-ÿ_][A-Za-zÀ-ÖØ-öø-ÿ0-9_]*)(?=\()\b</expression>
+    			<capture number="1" name="erlang.punctuation.delimiter.period" />
+    			<capture number="2" name="erlang.identifier.function" />
+    		</scope>
+    		<scope name="erlang.identifier.function">
+    			<expression>\b(?&lt;!\.)([A-Za-zÀ-ÖØ-öø-ÿ_][A-Za-zÀ-ÖØ-öø-ÿ0-9_]*)(?=\()\b</expression>
+    		</scope>
+				<scope name="erlang.identifier">
+				<expression>\b[a-zA-Z_][A-Za-z0-9_]*\b</expression>
+			</scope>
+		</collection>
+
+    	<collection name="syntax">
+    		<scope name="erlang.bracket">
+    			<expression>[\(\[\{\)\]\}]</expression>
+    		</scope>
+    		<scope name="erlang.operator">
+    			<expression>(\+|\-|\*|/|%|\:|not|bnot|div|rem|and|band|andalso|orelse|catch|bor|bxor|bsl|bsr|or|xor|\=|\=\=|\=\:\=|\=\/\=|\/\=|\=&lt;|&lt;|&gt;|&gt;\=|\;|\||\,)</expression>
+    		</scope>
+    	</collection>
+    </collections>
+
+</syntax>

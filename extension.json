@@ -1,0 +1,8 @@
+{
+    "identifier": "neighbourhoodie.Erlang",
+    "name": "Erlang",
+    "organization": "Neighbourhoodie Software",
+    "description": "Erlang Syntax for Nova",
+    "version": "1.0",
+    "categories": ["languages"]
+}
