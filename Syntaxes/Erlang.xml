@@ -169,17 +169,12 @@
 				<symbol type="expression">
 					<context behavior="subtree" />
 				</symbol>
-				<starts-with>
-					<expression>([a-zA-Z0-9_]*)(\#)([a-z0-9_]+)\.([a-z0-9_]+)</expression>
-					<capture number="1" name="erlang.identifier" />
-					<capture number="2" name="erlang.hash" />
-					<capture number="3" name="erlang.identifier.type.struct" />
-					<capture number="4" name="erlang.identifier.property" />
-				</starts-with>
-				<ends-with>
-					<expression>\}</expression>
-					<capture number="0" name="erlang.bracket" />
-				</ends-with>
+				<expression>([a-zA-Z0-9_]*)(\#)([a-z0-9_]+)\.([a-z0-9_]+)</expression>
+				<capture number="1" name="erlang.identifier" />
+				<capture number="2" name="erlang.hash" />
+				<capture number="3" name="erlang.identifier.type.struct" />
+				<capture number="4" name="erlang.identifier.property" />
+
 				<subscopes>
 					<include syntax="self" collection="comments" />
 					<include syntax="self" collection="values" />
