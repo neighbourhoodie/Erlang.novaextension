@@ -1,0 +1,2 @@
+-behavior(gen_server).
+-behaviour(gen_server).
