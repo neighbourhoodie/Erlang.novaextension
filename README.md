@@ -7,13 +7,9 @@ useful things.
 We mainly use this to develop [Apache CouchDB](https://couchdb.apache.org), if your
 Erlang code-base looks significantly different, we’re happy to accept patches for this.
 
-## TODO / Contribution Opportunities
-
-### Add highlighting to binary matching syntax
-
-### Support Maps
-
 ## Acknowledgements
+
+Paul @davisp Davis for the 2.0 rewrite.
 
 Thanks to https://github.com/stollcri/elixir.novaextension for inspiration.
 
