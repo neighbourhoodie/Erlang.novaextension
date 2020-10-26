@@ -125,6 +125,48 @@ exports.install_commands = function(client, disposables) {
         }
     }
 
+    async function format_file(editor) {
+        try {
+            var insertSpaces = true;
+            if(!editor.softTabs) {
+                insertSpaces = false;
+            }
+            const params = {
+                textDocument: {
+                    uri: editor.document.uri
+                },
+                options: {
+                    tabSize: editor.tabLength,
+                    insertSpaces: insertSpaces
+                }
+            };
+
+            const response = await client.sendRequest(
+                "textDocument/formatting",
+                params
+            );
+
+            // console.log("Response", JSON.stringify(response));
+
+            if(response == null) {
+                var msg = "Failed to reformat file.";
+                ui.notify("Formatting Failed", msg)
+                return;
+            }
+
+            await editor.edit((edit) => {
+               for(var i = 0; i < response.length; i++) {
+                   edit.replace(new Range(0, editor.document.length), response[i].newText);
+                   // edit.delete(new Range(0, editor.document.length));
+                   // edit.insert(0, response[i].newText);
+               }
+            });
+
+        } catch(err) {
+            console.log(err, err.stack);
+        }
+    }
+
     async function test_command(editor) {
         const range = editor.selectedRange;
         console.log("Selected: " + range.start + ":" + range.end);
@@ -132,10 +174,10 @@ exports.install_commands = function(client, disposables) {
         console.log("Location: " + JSON.stringify(position));
     }
 
-
     disposables.add(register("erlang.go_to_definition", util.wrap_command(go_to_definition)));
     disposables.add(register("erlang.show_references", util.wrap_command(show_references)));
     disposables.add(register("erlang.show_symbols", util.wrap_command(show_symbols)));
+    disposables.add(register("erlang.format_file", util.wrap_command(format_file)));
     disposables.add(register("erlang.test_command", util.wrap_command(test_command)));
 }
 

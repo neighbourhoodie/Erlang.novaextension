@@ -103,8 +103,6 @@ exports.toNovaRange = (document, range) => {
     let start = 0;
     let end = 0;
 
-    console.log("Range: " + JSON.stringify(range));
-
     for(let idx = 0; idx < lines.length; idx++) {
         if(range.start.line == idx) {
             start = chars + range.start.character;
@@ -112,13 +110,11 @@ exports.toNovaRange = (document, range) => {
 
         if(range.end.line == idx) {
             end = chars + range.end.character;
-            console.log("Creating: " + start + ":" + end);
             return new Range(start, end);
         }
 
         chars += lines[idx].length + document.eol.length;
     }
 
-    console.log("Creating: " + start + ":" + start);
     return new Range(start, start);
 }

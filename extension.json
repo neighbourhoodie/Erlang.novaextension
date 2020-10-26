@@ -89,6 +89,13 @@
                 }
             },
             {
+                "title": "Format File",
+                "command": "erlang.format_file",
+                "filters": {
+                    "syntaxes": ["erlang"]
+                }
+            },
+            {
                 "title": "Test Command",
                 "command": "erlang.test_command",
                 "filters": {
