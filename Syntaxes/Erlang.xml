@@ -937,7 +937,13 @@
             <expression>\\\^?.?</expression>
           </scope>
           <scope name="erlang.string-template.value">
-            <expression>(~)((\-)?\d++|(\*))?((\.)(\d++|(\*)))?((\.)((\*)|.))?[~cfegswpWPBX#bx\+ni]</expression>
+            <expression>(~)((\-)?\d++|(\*))?((\.)(\d++|(\*)))?((\.)((\*)|.))?[lt]?p</expression>
+          </scope>
+          <scope name="erlang.string-template.value">
+            <expression>(~)((\-)?\d++|(\*))?((\.)(\d++|(\*)))?((\.)((\*)|.))?t?[csw]</expression>
+          </scope>
+          <scope name="erlang.string-template.value">
+            <expression>(~)((\-)?\d++|(\*))?((\.)(\d++|(\*)))?((\.)((\*)|.))?[~fegWPBX#bx\+ni]</expression>
           </scope>
           <scope name="erlang.string-template.value">
             <expression>(~)(\*)?(\d++)?[~du\-#fsacl]</expression>
