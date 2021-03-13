@@ -303,11 +303,11 @@
       <scope name="erlang.definition.struct">
         <starts-with>
           <expression>(\{)</expression>
-          <capture number="1" name="erlang.bracket" />
+          <capture number="0" name="erlang.bracket" />
         </starts-with>
         <ends-with>
           <expression>(?=\})</expression>
-          <capture number="1" name="erlang.bracket" />
+          <capture number="0" name="erlang.bracket" />
         </ends-with>
         <subscopes>
           <scope name="erlang.definition.struct">
