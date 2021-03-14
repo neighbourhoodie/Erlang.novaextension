@@ -9,6 +9,7 @@
 
   <detectors>
     <extension priority="1.0">erl,hrl,yrl</extension>
+    <filename>rebar.config,rebar.config.script</filename>
   </detectors>
 
   <comments>

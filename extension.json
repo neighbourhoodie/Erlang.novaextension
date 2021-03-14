@@ -14,7 +14,7 @@
     "main": "main.js",
 
     "activationEvents": [
-        "onWorkspaceContains:*.erl,*.hrl,*.yrl",
+        "onWorkspaceContains:*.erl,*.hrl,*.yrl,rebar.config,rebar.config.script",
         "onLanguage:erlang"
     ],
 
