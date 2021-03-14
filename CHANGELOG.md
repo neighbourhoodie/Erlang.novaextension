@@ -1,3 +1,7 @@
+## Version 3.0.1
+
+2020-03-14 `rebar.config` and `rebar.config.script` are now highlighted correctly by default.
+
 ## Version 3.0.0
 
 2020-03-14 Add support for the Erlang Language Server.

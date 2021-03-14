@@ -3,7 +3,7 @@
     "name": "Erlang",
     "organization": "Neighbourhoodie Software",
     "description": "Erlang Syntax for Nova",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "license": "Apache 2.0 License",
     "categories": ["languages", "completions"],
     "repository": "https://github.com/neighbourhoodie/Erlang.novaextension",
