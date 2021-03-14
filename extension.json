@@ -5,9 +5,103 @@
     "description": "Erlang Syntax for Nova",
     "version": "2.0.1",
     "license": "Apache 2.0 License",
-    "categories": ["languages"],
+    "categories": ["languages", "completions"],
     "repository": "https://github.com/neighbourhoodie/Erlang.novaextension",
     "bugs": {
         "url": "https://github.com/neighbourhoodie/Erlang.novaextension/issues"
+    },
+
+    "main": "main.js",
+
+    "activationEvents": [
+        "onWorkspaceContains:*.erl,*.hrl,*.yrl",
+        "onLanguage:erlang"
+    ],
+
+    "entitlements": {
+        "process": true,
+        "filesystem": "readonly"
+    },
+
+    "config": [
+        {
+            "key": "erlang.trace.server",
+            "title": "Trace",
+            "description": "Traces the communication between Nova and the Erlang language server.",
+            "type": "enum",
+            "values": [
+                "off",
+                "messages",
+                "verbose"
+            ],
+            "default": "off"
+        }
+    ],
+
+    "sidebars": [
+        {
+            "id": "erlang.sidebar",
+            "name": "Erlang",
+            "smallImage": "SidebarSmall",
+            "largeImage": "SidebarLarge",
+            "sections": [
+                {
+                    "id": "erlang.sidebar.search_results",
+                    "name": "Search Results",
+                    "placeholderText": "Erlang Search Results",
+                    "headerCommands": []
+                }
+            ]
+        }
+    ],
+
+    "commands": {
+        "extensions": [
+            {
+                "title": "Restart Language Server",
+                "command": "erlang.language_server.restart"
+            },
+            {
+                "title": "Check Language Server",
+                "command": "erlang.language_server.check"
+            }
+        ],
+        "editor": [
+            {
+                "title": "Go To Definition",
+                "command": "erlang.go_to_definition",
+                "filters": {
+                    "syntaxes": ["erlang"]
+                }
+            },
+            {
+                "title": "Show References",
+                "command": "erlang.show_references",
+                "filters": {
+                    "syntaxes": ["erlang"]
+                }
+            },
+            {
+                "title": "Show Symbols",
+                "command": "erlang.show_symbols",
+                "filters": {
+                    "syntaxes": ["erlang"]
+                }
+            },
+            {
+                "title": "Format File",
+                "command": "erlang.format_file",
+                "filters": {
+                    "syntaxes": ["erlang"]
+                }
+            },
+            {
+                "title": "Test Command",
+                "command": "erlang.test_command",
+                "filters": {
+                    "syntaxes": ["erlang"]
+                }
+            }
+        ]
     }
 }
