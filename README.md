@@ -9,7 +9,7 @@ Erlang code-base looks significantly different, we’re happy to accept patches 
 
 ## Acknowledgements
 
-Paul @davisp Davis for the 2.0 rewrite.
+Paul @davisp Davis for the 2.0 and 3,0 rewrites.
 
 Thanks to https://github.com/stollcri/elixir.novaextension for inspiration.
 
@@ -17,4 +17,4 @@ Thanks to Joe Armstrong for inventing Erlang.
 
 ## Copyright & License
 
-(c) 2020 Neighbourhoodie Software, Released under the Apache 2.0 License
+(c) 2020-2021 Neighbourhoodie Software, Released under the Apache 2.0 License
