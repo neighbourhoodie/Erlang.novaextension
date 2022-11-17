@@ -1,3 +1,7 @@
+## Version 3.0.2
+
+2022-11-17 fix cmd-/ for commenting in/out
+
 ## Version 3.0.1
 
 2020-03-14 `rebar.config` and `rebar.config.script` are now highlighted correctly by default.
